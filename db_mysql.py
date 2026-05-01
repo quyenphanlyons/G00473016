@@ -16,14 +16,14 @@ def connect():
 
 def get_speakers_sessions(name):
     global conn
+
     if not conn:
         connect()
 
     query = """
-    SELECT s.speakerName, sess.sessionTitle, r.roomName
-    FROM speaker s
-    JOIN session sess ON s.speakerID = sess.speakerID
-    JOIN room r ON sess.roomID = r.roomID
+    SELECT s.speakerName, s.sessionTitle, r.roomName
+    FROM session s
+    JOIN room r ON s.roomID = r.roomID
     WHERE s.speakerName LIKE %s
     """
 
