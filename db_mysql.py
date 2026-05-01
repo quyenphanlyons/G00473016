@@ -9,7 +9,8 @@ def connect():
         host="localhost",
         user="root",
         password="root",
-        db="appdbproj"
+        db="appdbproj",
+        ssl={'ssl':{}}
     )
 
 
