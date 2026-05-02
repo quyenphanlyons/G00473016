@@ -46,12 +46,12 @@ def op1():
 def op2():
     while True:
         try:
-            input = input("Enter company ID or 'x' to exit request")
-            if input.lower() == 'x':
+            type_in = input("Enter company ID or 'x' to exit request")
+            if type_in.lower() == 'x':
                 return 
             
-            comId = int(input)
-
+            comId = int(type_in)
+            
             # companyId must be valid
             if comId <= 0:
                 raise ValueError
