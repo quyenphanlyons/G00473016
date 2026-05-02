@@ -44,28 +44,30 @@ def op1():
 
 # Option 2: Get attendees by company
 def op2():
-    comId = int(input("Enter company ID: "))
+    while True:
+        try:
+            comId = int(input("Enter company ID: "))
 
-    # companyId must be valid
-    if comId <= 0:
-        raise ValueError("Company ID must be a positive integer")
-    
-    if not db_mysql.company_exists(comId):
-        print(f"Company with Id {comId} does not exist.")
-        return
+            # companyId must be valid
+            if comId <= 0:
+                raise ValueError("Company ID must be a positive integer")
+            
+            if not db_mysql.company_exists(comId):
+                print(f"Company with Id {comId} does not exist.")
+                continue
 
-    results = db_mysql.get_attendees(comId)
-    company_name = db_mysql.get_company_name(comId)
+            results = db_mysql.get_attendees(comId)
+            company_name = db_mysql.get_company_name(comId)
 
-    print(f"{company_name} Attendees")
+            print(f"{company_name} Attendees")
 
-    if not results:
-        print(f"No attendees found for {company_name}")
-        return
+            if not results:
+                print(f"No attendees found for {company_name}")
+                return
 
-    for row in results:
-        name, dob, session, speaker, room = row
-        print(f"{name} | {dob} | {session} | {speaker} | {room}")
+            for row in results:
+                name, dob, session, speaker, room = row
+                print(f"{name} | {dob} | {session} | {speaker} | {room}")
 
 
 
