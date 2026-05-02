@@ -41,13 +41,13 @@ def company_exists(companyId):
         connect()
 
     query = """
-    "SELECT companyId
+    "SELECT companyName
     "FROM company
     "WHERE companyId = %s
     """
     cursor = conn.cursor()
     cursor.execute(query, (companyId,))
-    return cursor.fetchone()
+    return cursor.fetchone() is not None
 
 # get the attendees of a company
 def get_attendees(companyId):
