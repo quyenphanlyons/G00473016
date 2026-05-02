@@ -31,7 +31,7 @@ def op1():
     name = input("Enter speaker name: ")
     results = db_mysql.get_speakers_sessions(name)
 
-    print(f"Session details for : {name}")
+    print(f"Session Details For : {name}")
 
     if not results:
         print("No speakers found of that name")
@@ -61,7 +61,7 @@ def op2():
                 continue
 
             results = db_mysql.get_attendees(comId)
-            company_name = db_mysql.get_company_name(comId)
+            company_name = db_mysql.company_exists(comId)
 
             print(f"{company_name} Attendees")
 
@@ -73,7 +73,7 @@ def op2():
                 name, dob, session, speaker, room = row
                 print(f"{name} | {dob} | {session} | {speaker} | {room}")
             return
-        except:
+        except ValueError:
             print("Invalid company Id")
 
 
