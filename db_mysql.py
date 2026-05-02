@@ -59,7 +59,7 @@ def get_attendees(company_id):
     query = """
     SELECT  a.attendeeName, 
             a.attendeeDOB,
-            a.sessionTitle,
+            s.sessionTitle,
             s.speakerName,
             r.roomName
     FROM attendee a
