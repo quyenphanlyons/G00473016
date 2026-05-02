@@ -25,7 +25,7 @@ def op1():
 
     for row in results:
         speaker, session, room = row
-        print(f"{speaker}, {session}, {room}")
+        print(f"{speaker} | {session} | {room}")
           
 
 def main():
