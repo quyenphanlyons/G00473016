@@ -46,6 +46,10 @@ def op1():
 def op2():
     while True:
         try:
+            input = input("Enter company ID or 'x' to exit request")
+            if input.lower() == 'x':
+                return 
+            
             comId = int(input("Enter company ID: "))
 
             # companyId must be valid
