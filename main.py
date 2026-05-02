@@ -31,10 +31,10 @@ def op1():
     name = input("Enter speaker name: ")
     results = db_mysql.get_speakers_sessions(name)
 
-    print("Session details for speakers:", name)
+    print(f"Session details for : {name}")
 
     if not results:
-        print("No speakers found")
+        print("No speakers found of that name")
         return
 
     for row in results:
@@ -50,7 +50,7 @@ def op2():
 
             # companyId must be valid
             if comId <= 0:
-                raise ValueError("Company ID must be a positive integer")
+                raise ValueError
             
             if not db_mysql.company_exists(comId):
                 print(f"Company with Id {comId} does not exist.")
@@ -68,7 +68,9 @@ def op2():
             for row in results:
                 name, dob, session, speaker, room = row
                 print(f"{name} | {dob} | {session} | {speaker} | {room}")
-
+            return
+        except:
+            print("Invalid company Id")
 
 
 if __name__ == "__main__":
