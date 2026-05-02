@@ -50,7 +50,7 @@ def op2():
             if input.lower() == 'x':
                 return 
             
-            comId = int(input("Enter company ID: "))
+            comId = int(input)
 
             # companyId must be valid
             if comId <= 0:
