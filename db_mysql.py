@@ -34,43 +34,41 @@ def get_speakers_sessions(name):
 # Option 2: Get attendees by company
 
 # the companyId exists?
-def company_exists(companyId):
+def company_exists(company_id):
     global conn
 
     if not conn:
         connect()
 
     query = """
-    "SELECT companyName
-    "FROM company
-    "WHERE companyId = %s
+    SELECT companyName
+    FROM company
+    WHERE companyID = %s
     """
     cursor = conn.cursor()
-    cursor.execute(query, (companyId,))
+    cursor.execute(query, (company_id,))
     return cursor.fetchone() is not None
 
 # get the attendees of a company
-def get_attendees(companyId):
+def get_attendees(company_id):
     global conn
 
     if not conn:
         connect()
 
     query = """
-    SELECT  c.companyName,
-            a.attendeeName, 
+    SELECT  a.attendeeName, 
             a.attendeeDOB,
-            a.attendeeTitle,
+            a.sessionTitle,
             s.speakerName,
             r.roomName
     FROM attendee a
-    JOIN company c ON a.attendeeCompanyId = c.companyId
     JOIN registration re ON a.attendeeID = re.attendeeID
     JOIN session s ON re.sessionID = s.sessionID
     JOIN room r ON s.roomID = r.roomID
-    WHERE a.attendeeCompanyId = %s
+    WHERE a.attendeeCompanyID = %s
     """
 
     cursor = conn.cursor()
-    cursor.execute(query, (companyId,))
+    cursor.execute(query, (company_id,))
     return cursor.fetchall()
