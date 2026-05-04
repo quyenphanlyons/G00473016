@@ -31,6 +31,7 @@ def get_speakers_sessions(name):
     cursor.execute(query, ("%" + name + "%",))
     return cursor.fetchall()
 
+
 # Option 2: Get attendees by company
 
 # the companyId exists?
@@ -72,3 +73,37 @@ def get_attendees(company_id):
     cursor = conn.cursor()
     cursor.execute(query, (company_id,))
     return cursor.fetchall()
+
+
+
+# Option 3: Add new attendee
+def attendee_exists(attendeeID):
+    global conn
+
+    if not conn:
+        connect()
+
+    query = """
+    SELECT attendeeID
+    FROM attendee
+    WHERE attendeeID = %s
+    """
+    cursor = conn.cursor()
+    cursor.execute(query, (attendeeID,))
+    return cursor.fetchone() is not None
+
+
+def new_attendee(attendeeID, attendeeName, attendeeDOB, attendeeGender, attendeeCompanyID):
+    global conn
+
+    if not conn:
+        connect()
+
+    query = """
+    INSERT INTO attendee (attendeeID, attendeeName, attendeeDOB, attendeeGenderattendeeCompanyID)
+    VALUES (%s, %s, %s, %s, %s)
+    """
+
+    cursor = conn.cursor()
+    cursor.execute(query, (attendeeID, attendeeName, attendeeDOB, attendeeGender, attendeeCompanyID))
+    conn.commit()

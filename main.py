@@ -23,6 +23,8 @@ def main():
             op1()
         elif choice =="2":
             op2()
+        elif choice =="3":
+            op3()
         elif choice =="x":
             break
 
@@ -76,6 +78,37 @@ def op2():
         except ValueError:
             print("Invalid company Id")
 
+
+# Option 3: Add new attendee
+def op3():
+    try:
+        attendeeID = int(input("Enter Attendee ID: "))
+        attendeeName = input("Enter Attendee Name: ")
+        attendeeDOB = input("Enter Attendee Date of Birth: ")
+        attendeeGender = input("Enter Attendee Gender: ")
+        attendeeCompanyID = int(input("Enter Attendee Company ID: "))
+
+        # Send an Error message if attendeeID already exists
+        if db_mysql.attendee_exists(attendeeID):
+            print(f"*** ERROR *** Attendee ID already exists")
+            return
+        
+        # Send an Error message for invalid gender
+        if attendeeGender not in ['Male', 'Female']:
+            print(f"*** ERROR *** Invalid gender")
+            return
+        
+        # Send an Error message for invalid company ID        if not db_mysql.company_exists(attendeeCompanyID):
+        if not db_mysql.company_exists(attendeeCompanyID):
+            print(f"*** ERROR *** Company ID does not exist")
+            return
+        
+        # Insert the new attendee into the database
+        db_mysql.new_attendee(attendeeID, attendeeName, attendeeDOB, attendeeGender, attendeeCompanyID)
+        print("Attendee successfully added.")
+
+    except ValueError:
+        print(f"*** ERROR *** {e}")
 
 if __name__ == "__main__":
     main()
