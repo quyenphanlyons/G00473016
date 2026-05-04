@@ -77,6 +77,8 @@ def get_attendees(company_id):
 
 
 # Option 3: Add new attendee
+
+# check if attendee exists
 def attendee_exists(attendeeID):
     global conn
 

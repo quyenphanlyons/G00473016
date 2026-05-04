@@ -83,6 +83,10 @@ def op2():
 def op3():
     try:
         attendeeID = int(input("Enter Attendee ID: "))
+        print("DEBUG ID:", attendeeID, type(attendeeID))
+        print("DEBUG EXISTS:", db_mysql.attendee_exists(attendeeID))
+
+
         attendeeName = input("Enter Attendee Name: ")
         attendeeDOB = input("Enter Attendee Date of Birth: ")
         attendeeGender = input("Enter Attendee Gender: ")
@@ -109,6 +113,7 @@ def op3():
 
     except Exception as e:
         print(f"*** ERROR *** {e}")
+        
 
 if __name__ == "__main__":
     main()
