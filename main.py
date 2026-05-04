@@ -107,7 +107,7 @@ def op3():
         db_mysql.new_attendee(attendeeID, attendeeName, attendeeDOB, attendeeGender, attendeeCompanyID)
         print("Attendee successfully added.")
 
-    except ValueError:
+    except Exception as e:
         print(f"*** ERROR *** {e}")
 
 if __name__ == "__main__":
