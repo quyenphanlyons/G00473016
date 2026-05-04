@@ -83,23 +83,21 @@ def op2():
 def op3():
     try:
         attendeeID = int(input("Enter Attendee ID: "))
+        attendeeName = input("Enter Attendee Name: ")
+        attendeeDOB = input("Enter Attendee Date of Birth: ")
+        attendeeGender = input("Enter Attendee Gender: ")
+        attendeeCompanyID = int(input("Enter Attendee Company ID: "))
         
         # Send an Error message if attendeeID already exists
         if db_mysql.attendee_exists(attendeeID):
             print(f"*** ERROR *** Attendee ID already exists")
             return
 
-        attendeeName = input("Enter Attendee Name: ")
-
-        attendeeDOB = input("Enter Attendee Date of Birth: ")
-
-        attendeeGender = input("Enter Attendee Gender: ")
         # Send an Error message for invalid gender
         if attendeeGender not in ['Male', 'Female']:
             print(f"*** ERROR *** Invalid gender")
             return
-
-        attendeeCompanyID = int(input("Enter Attendee Company ID: "))
+        
         # Send an Error message for invalid company ID
         if not db_mysql.company_exists(attendeeCompanyID):
             print(f"*** ERROR *** Company ID does not exist")
