@@ -100,7 +100,7 @@ def new_attendee(attendeeID, attendeeName, attendeeDOB, attendeeGender, attendee
         connect()
 
     query = """
-    INSERT INTO attendee (attendeeID, attendeeName, attendeeDOB, attendeeGenderattendeeCompanyID)
+    INSERT INTO attendee (attendeeID, attendeeName, attendeeDOB, attendeeGender, attendeeCompanyID)
     VALUES (%s, %s, %s, %s, %s)
     """
 
