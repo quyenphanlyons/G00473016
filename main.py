@@ -120,10 +120,10 @@ def op4():
     attendeeID = input("Enter Attendee ID: ")
 
     # Get attendee's name from mysql
-    attendeeName = db_mysql.attendee_exists(attendeeName)
+    attendeeName = db_mysql.attendee_exists(attendeeID)
 
     if not attendeeName:
-        print("Attendee does not exist.")
+        print("*** ERROR *** Attendee does not exist")
         return
     
     # print attendee's name if found
@@ -131,7 +131,7 @@ def op4():
     print("------------------------------")
 
     # Get connected attendees
-    connect = db_neo4j.get_connected_attendees(attendeeID)
+    connect = db_neo4j.get_connected_attendees(attendeeName)
 
     if not connect:
         print("No connections")
