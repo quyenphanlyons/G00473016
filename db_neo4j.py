@@ -22,8 +22,8 @@ def get_connected_attendees(attendeeID):
         connect()
 
     query = """
-    MATCH (a:Attendee {attendeeID: $attendeeID})-[:CONNECTED_TO]->(b:Attendee)
-    RETURN b.attendeeID AS ID, b.attendeeName AS name
+    MATCH (a:Attendee {AttendeeID: $attendeeID})-[:CONNECTED_TO]->(b:Attendee)
+    RETURN b.AttendeeID AS ID
     """
 
     with driver.session() as session:
