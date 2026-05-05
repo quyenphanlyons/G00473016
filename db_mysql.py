@@ -132,6 +132,4 @@ def get_attendee_name(attendeeID):
     cursor.execute(query, (attendeeID,))
     result = cursor.fetchone()
 
-    if result:
-        return result[0]
-    return None
+    return result[0] if result else None
