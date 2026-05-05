@@ -48,7 +48,7 @@ def company_exists(company_id):
     """
     cursor = conn.cursor()
     cursor.execute(query, (company_id,))
-    return cursor.fetchone()
+    result = cursor.fetchone()
 
     if result:
         return result[0]
