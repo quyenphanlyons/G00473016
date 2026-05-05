@@ -4,7 +4,7 @@ driver = None
 
 def connect():
     global driver
-    uri = "neo4j://localhost:7687"
+    uri = "bolt://localhost:7687"
     username = "neo4j"      
     password = "neo4jneo4j"
 
