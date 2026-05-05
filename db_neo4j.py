@@ -9,3 +9,7 @@ def connect():
     password = "neo4jneo4j"
 
     driver = GraphDatabase.driver(uri, auth=(username, password))
+
+if __name__ == "__main__":
+    connect()
+    print("Connected to Neo4j!")
