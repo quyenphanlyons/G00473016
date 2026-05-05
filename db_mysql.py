@@ -92,7 +92,7 @@ def attendee_exists(attendeeID):
         connect()
 
     query = """
-    SELECT attendeeID
+    SELECT attendeeID, attendeeName
     FROM attendee
     WHERE attendeeID = %s
     """
