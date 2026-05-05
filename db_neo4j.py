@@ -26,6 +26,6 @@ def get_connected_attendees(attendeeID):
     RETURN b.AttendeeID AS ID
     """
 
-    with driver.session(database="attendeeNetwork") as session:
+    with driver.session(database="attendeenetwork") as session:
         result = session.run(query, attendeeID=attendeeID)
         return result.data()
