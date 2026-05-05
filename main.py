@@ -141,9 +141,7 @@ def op4():
     for c in connect:
         print(f"{c['ID']} | {c['name']}")
 
-except ValueError:
-    print("Invalid input. Please enter a valid Attendee ID.")
-    
+
 
 
 
