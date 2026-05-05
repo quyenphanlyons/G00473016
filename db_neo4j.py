@@ -27,5 +27,5 @@ def get_connected_attendees(attendeeID):
     """
 
     with driver.session() as session:
-        result = session.run(query, attendee_id=attendeeID)
+        result = session.run(query, attendeeID=attendeeID)
         return result.data()

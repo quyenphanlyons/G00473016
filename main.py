@@ -131,7 +131,7 @@ def op4():
     print("------------------------------")
 
     # Get connected attendees
-    connect = db_neo4j.get_connected_attendees(attendeeName)
+    connect = db_neo4j.get_connected_attendees(attendeeID)
 
     if not connect:
         print("No connections")
