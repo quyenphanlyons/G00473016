@@ -92,7 +92,7 @@ def attendee_exists(attendeeID):
         connect()
 
     query = """
-    SELECT attendeeID, attendeeName
+    SELECT attendeeID
     FROM attendee
     WHERE attendeeID = %s
     """
@@ -115,3 +115,23 @@ def new_attendee(attendeeID, attendeeName, attendeeDOB, attendeeGender, attendee
     cursor = conn.cursor()
     cursor.execute(query, (attendeeID, attendeeName, attendeeDOB, attendeeGender, attendeeCompanyID))
     conn.commit()
+
+# Option 4: Get connected attendees
+def get_attendee_name(attendeeID):
+    global conn
+
+    if not conn:
+        connect()
+
+    query = """
+    SELECT attendeeName
+    FROM attendee
+    WHERE attendeeID = %s
+    """
+    cursor = conn.cursor()
+    cursor.execute(query, (attendeeID,))
+    result = cursor.fetchone()
+
+    if result:
+        return result[0]
+    return None

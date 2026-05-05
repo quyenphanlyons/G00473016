@@ -120,7 +120,7 @@ def op4():
     attendeeID = input("Enter Attendee ID: ")
 
     # Get attendee's name from mysql
-    attendeeName = db_mysql.attendee_exists(attendeeID)
+    attendeeName = db_mysql.get_attendee_name(attendeeID)
 
     if not attendeeName:
         print("*** ERROR *** Attendee does not exist")
