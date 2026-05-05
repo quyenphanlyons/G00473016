@@ -72,8 +72,8 @@ def op2():
                 return
 
             for row in results:
-                name, dob, session, speaker, room = row
-                print(f"{name} | {dob} | {session} | {speaker} | {room}")
+                name, dob, session, speaker, date, room = row
+                print(f"{name} | {dob} | {session} | {speaker} | {date}  | {room}")
             return
         except ValueError:
             print("Invalid company Id")

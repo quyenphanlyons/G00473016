@@ -62,6 +62,7 @@ def get_attendees(company_id):
             a.attendeeDOB,
             s.sessionTitle,
             s.speakerName,
+            s.sessionDate,
             r.roomName
     FROM attendee a
     JOIN registration re ON a.attendeeID = re.attendeeID
