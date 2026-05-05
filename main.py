@@ -117,31 +117,36 @@ def op3():
 # Option 4: View connected attendees
 def op4():
     
-    attendeeID = int(input("Enter Attendee ID: "))
+    while True:
+        try:
+            attendeeID = int(input("Enter Attendee ID: "))
+            
+            # Get attendee's name from mysql
+            attendeeName = db_mysql.get_attendee_name(attendeeID)
 
-    # Get attendee's name from mysql
-    attendeeName = db_mysql.get_attendee_name(attendeeID)
+            if not attendeeName:
+                print("*** ERROR *** Attendee does not exist")
+                continue
+            
+            # print attendee's name if found
+            print(f"Attendee Name: {attendeeName}")
+            print("------------------------------")
 
-    if not attendeeName:
-        print("*** ERROR *** Attendee does not exist")
-        return
-    
-    # print attendee's name if found
-    print(f"Attendee Name: {attendeeName}")
-    print("------------------------------")
+            # Get connected attendees
+            connect = db_neo4j.get_connected_attendees(attendeeID)
 
-    # Get connected attendees
-    connect = db_neo4j.get_connected_attendees(attendeeID)
-
-    if not connect:
-        print("No connections")
-        return
-    
-    # print connections
-    for c in connect:
-        name = db_mysql.get_attendee_name(c['ID'])
-        print(f"{c['ID']} | {name}")
-
+            if not connect:
+                print("No connections")
+                return
+            
+            # print connections
+            for c in connect:
+                name = db_mysql.get_attendee_name(c['ID'])
+                print("These attendees are connected:")
+                print(f"{c['ID']} | {name}")
+            return
+        except ValueError:
+            print("*** ERROR *** Invalid Attendee ID")
 
 
 
