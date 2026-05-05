@@ -140,7 +140,7 @@ def op4():
     # print connections
     for c in connect:
         name = db_mysql.get_attendee_name(c['ID'])
-        print(f"{c['ID']} | {c['name']}")
+        print(f"{c['ID']} | {name}")
 
 
 
