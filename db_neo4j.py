@@ -22,7 +22,7 @@ def get_connected_attendees(attendeeID):
         connect()
 
     query = """
-    MATCH (a:Attendee {AttendeeID: $attendeeID})-[:CONNECTED_TO]->(b:Attendee)
+    MATCH (a:Attendee {AttendeeID: $attendeeID})-[:CONNECTED_TO]-(b:Attendee)
     RETURN b.AttendeeID AS ID
     """
 
