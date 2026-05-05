@@ -1,6 +1,7 @@
 
 
 import db_mysql
+import db_neo4j
 
 def menu():
     print("\nConference Management")
@@ -25,6 +26,8 @@ def main():
             op2()
         elif choice =="3":
             op3()
+        elif choice =="4":
+            op4()
         elif choice =="x":
             break
 
@@ -110,6 +113,39 @@ def op3():
     except Exception as e:
         print(f"*** ERROR *** {e}")
         
+
+# Option 4: View connected attendees
+def op4():
+    
+    attendeeID = input("Enter Attendee ID: ")
+
+    # Get attendee's name from mysql
+    attendeeName = db_mysql.get_attendee_name(attendeeID)
+
+    if not attendeeName:
+        print("Attendee does not exist.")
+        return
+    
+    # print attendee's name if found
+    print(f"Attendee Name: {attendeeName}")
+    print("------------------------------")
+
+    # Get connected attendees
+    connect = db_neo4j.get_connected_attendees(attendeeID)
+
+    if not connect:
+        print("No connections")
+        return
+    
+    # print connections
+    for c in connect:
+        print(f"{c['ID']} | {c['name']}")
+
+except ValueError:
+    print("Invalid input. Please enter a valid Attendee ID.")
+    
+
+
 
 if __name__ == "__main__":
     main()
