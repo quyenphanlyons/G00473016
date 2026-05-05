@@ -48,7 +48,12 @@ def company_exists(company_id):
     """
     cursor = conn.cursor()
     cursor.execute(query, (company_id,))
-    return cursor.fetchone() is not None
+    return cursor.fetchone()
+
+    if result:
+        return result[0]
+    return None
+
 
 # get the attendees of a company
 def get_attendees(company_id):
