@@ -133,3 +133,18 @@ def get_attendee_name(attendeeID):
     result = cursor.fetchone()
 
     return result[0] if result else None
+
+# Option 6: Get rooms information
+def get_room_info():
+    global conn
+
+    if not conn:
+        connect()
+
+    query = """
+    SELECT roomID,roomName, capacity
+    FROM room
+    """
+    cursor = conn.cursor()
+    cursor.execute(query)
+    return cursor.fetchall()

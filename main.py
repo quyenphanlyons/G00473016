@@ -188,6 +188,15 @@ def op5():
         except ValueError:
             print("*** ERROR *** Attendee IDs must be numbers")
 
+# Option 6: Get room information
+def op6():
+    try:
+        rooms = db_mysql.get_room_info()
+        print("Room ID | RoomName | Capacity")
+        for room in rooms:
+            print(f"{room[0]} | {room[1]} | {room[2]}")
+    except Exception as e:
+        print(f"*** ERROR *** {e}")
 
 if __name__ == "__main__":
     main()
