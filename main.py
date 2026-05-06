@@ -152,6 +152,9 @@ def op4():
 
 
 # Option 5: Add attendee connection
+# For the moment, the option will keep running until 
+# I enter the right combination of attendees so it can create a connection. 
+# I should be able to quit this option when I want
 
 def op5():
     while True:
@@ -165,7 +168,7 @@ def op5():
             a2 = db_mysql.attendee_exists(attendee2)
 
             if not a1 or not a2:
-                print("*** ERROR *** One or both Attendee IDs do not exist")
+                print("*** ERROR *** One or both attendee IDs do not exist")
                 continue
             
             if attendee1==attendee2:

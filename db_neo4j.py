@@ -41,8 +41,8 @@ def add_connection(attendee1, attendee2):
     query = """
     MERGE (a:Attendee {AttendeeID: $ID1})
     MERGE (b:Attendee {AttendeeID: $ID2})
-    MERGE (a)-[:CONNECTED_TO]-(b)
-    MERGE (b)-[:CONNECTED_TO]-(a)
+    CREATE (a)-[:CONNECTED_TO]->(b)
+    CREATE (b)-[:CONNECTED_TO]->(a)
     """
 
     with driver.session(database="attendeenetwork") as session:
