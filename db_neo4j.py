@@ -47,3 +47,20 @@ def add_connection(attendee1, attendee2):
 
     with driver.session(database="attendeenetwork") as session:
         session.run(query, ID1=attendee1, ID2=attendee2)
+
+
+# check if attendee connection exists
+def connection_exists(attendee1, attendee2):
+    global driver
+
+    if not driver:
+        connect()
+
+    query = """
+    MATCH (a:Attendee {AttendeeID: $ID1})-[:CONNECTED_TO]-(b:Attendee {AttendeeID: $ID2})
+    RETURN a, b
+    """
+
+    with driver.session(database="attendeenetwork") as session:
+        result = session.run(query, ID1=attendee1, ID2=attendee2)
+        return result.single() is not None

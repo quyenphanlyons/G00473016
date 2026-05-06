@@ -28,6 +28,8 @@ def main():
             op3()
         elif choice =="4":
             op4()
+        elif choice =="5":
+            op5()
         elif choice =="x":
             break
 
@@ -149,6 +151,34 @@ def op4():
             print("*** ERROR *** Invalid Attendee ID")
 
 
+# Option 5: Add attendee connection
+
+def op5():
+    while True:
+    
+        try:
+            attendee1 = int(input("Enter Attendee 1 ID: "))
+            attendee2 = int(input("Enter Attendee 2ID: "))
+
+            # Check if both attendees exist
+            a1 = db_mysql.attendee_exists(attendee1)
+            a2 = db_mysql.attendee_exists(attendee2)
+
+            if not a1 or not a2:
+                print("*** ERROR *** One or both Attendee IDs do not exist")
+                continue
+            
+            if a1==a2:
+                print("*** ERROR *** An attendee cannot connect to him/herself")
+                continue
+
+            # Add connection in Neo4j
+            db_neo4j.add_connection(a1, a2)
+            print(f"Attendee {a1} is now connected to Attendee {a2}")
+            return
+        
+        except ValueError:
+            print("*** ERROR *** Attendee IDs must be numbers")
 
 
 if __name__ == "__main__":
