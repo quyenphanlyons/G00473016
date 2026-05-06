@@ -29,3 +29,21 @@ def get_connected_attendees(attendeeID):
     with driver.session(database="attendeenetwork") as session:
         result = session.run(query, attendeeID=attendeeID)
         return result.data()
+    
+
+# Option 5: Connect two attendees
+def add_connection(attendee1, attendee2):
+    global driver
+
+    if not driver:
+        connect()
+
+    query = """
+    MERGE (a:Attendee {AttendeeID: $ID1})
+    MERGE (b:Attendee {AttendeeID: $ID2})
+    MERGE (a)-[:CONNECTED_TO]-(b)
+    MERGE (b)-[:CONNECTED_TO]-(a)
+    """
+
+    with driver.session(database="attendeenetwork") as session:
+        session.run(query, ID1=attendee1, ID2=attendee2)
