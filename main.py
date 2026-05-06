@@ -5,7 +5,9 @@ import db_neo4j
 
 def menu():
     print("\nConference Management")
-    print("----------------------")
+    print("---------------------")
+    print("\nMENU")
+    print("====")
     print("1 - View Speakers & Sessions")
     print("2 - View Attendees by Company")
     print("3 - Add New Attendee")
@@ -30,6 +32,8 @@ def main():
             op4()
         elif choice =="5":
             op5()
+        elif choice =="6":
+            op6()
         elif choice =="x":
             break
 
