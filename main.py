@@ -16,8 +16,14 @@ def menu():
     print("6 - View Rooms")
     print("x - Exit")
 
+rooms = None
 
 def main():
+
+    global rooms
+
+    rooms = db_mysql.get_room_info()
+
     while True:
         menu()
         choice = input("Choice: ")
@@ -194,8 +200,9 @@ def op5():
 
 # Option 6: Get room information
 def op6():
+    global rooms
+    
     try:
-        rooms = db_mysql.get_room_info()
         print("Room ID | RoomName | Capacity")
         for room in rooms:
             print(f"{room[0]} | {room[1]} | {room[2]}")
