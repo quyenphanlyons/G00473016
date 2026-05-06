@@ -158,7 +158,7 @@ def op5():
     
         try:
             attendee1 = int(input("Enter Attendee 1 ID: "))
-            attendee2 = int(input("Enter Attendee 2ID: "))
+            attendee2 = int(input("Enter Attendee 2 ID: "))
 
             # Check if both attendees exist
             a1 = db_mysql.attendee_exists(attendee1)
@@ -171,10 +171,15 @@ def op5():
             if a1==a2:
                 print("*** ERROR *** An attendee cannot connect to him/herself")
                 continue
+            
+            # check if any attendee already has a connection
+            if db_neo4j.connection_exists(attendee1,attendee2):
+                print("*** ERROR *** These attendees are already connected")
+                continue
 
             # Add connection in Neo4j
-            db_neo4j.add_connection(a1, a2)
-            print(f"Attendee {a1} is now connected to Attendee {a2}")
+            db_neo4j.add_connection(attendee1, attendee2)
+            print(f"Attendee {attendee1} is now connected to Attendee {attendee2}")
             return
         
         except ValueError:

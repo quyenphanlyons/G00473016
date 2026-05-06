@@ -57,8 +57,10 @@ def connection_exists(attendee1, attendee2):
         connect()
 
     query = """
-    MATCH (a:Attendee {AttendeeID: $ID1})-[:CONNECTED_TO]-(b:Attendee {AttendeeID: $ID2})
-    RETURN a, b
+    MATCH (a:Attendee {AttendeeID: $ID1})
+    -[:CONNECTED_TO]- 
+    (b:Attendee {AttendeeID: $ID2})
+    RETURN 1
     """
 
     with driver.session(database="attendeenetwork") as session:
