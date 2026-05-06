@@ -168,7 +168,7 @@ def op5():
                 print("*** ERROR *** One or both Attendee IDs do not exist")
                 continue
             
-            if a1==a2:
+            if attendee1==attendee2:
                 print("*** ERROR *** An attendee cannot connect to him/herself")
                 continue
             
