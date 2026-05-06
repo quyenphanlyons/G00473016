@@ -41,7 +41,10 @@ def main():
         elif choice =="6":
             op6()
         elif choice =="x":
+            print("Program terminated")
             break
+        else:
+            continue
 
 # Option 1: Get speakers, their sessions and rooms
 def op1():
