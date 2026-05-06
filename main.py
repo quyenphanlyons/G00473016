@@ -3,6 +3,7 @@
 import db_mysql
 import db_neo4j
 
+# Show the options menu
 def menu():
     print("\nConference Management")
     print("---------------------")
@@ -16,14 +17,16 @@ def menu():
     print("6 - View Rooms")
     print("x - Exit")
 
+# Store rooms info in a global variable - action related to Option 6
 rooms = None
 
 def main():
 
     global rooms
-
+    # Load rooms info at once
     rooms = db_mysql.get_room_info()
 
+    # Main loop
     while True:
         menu()
         choice = input("Choice: ")
@@ -46,13 +49,14 @@ def main():
         else:
             continue
 
-# Option 1: Get speakers, their sessions and rooms
+# Option 1: Display speakers, their sessions and rooms
 def op1():
     name = input("Enter speaker name: ")
     results = db_mysql.get_speakers_sessions(name)
 
     print(f"Session Details For : {name}")
 
+    # Send a message if no speakers are found
     if not results:
         print("No speakers found of that name")
         return
@@ -62,42 +66,47 @@ def op1():
         print(f"{speaker} | {session} | {room}")
           
 
-# Option 2: Get attendees by company
+# Option 2: Display attendees by company
 def op2():
     while True:
         try:
-            type_in = input("Enter company ID or 'x' to exit request:")
-            if type_in.lower() == 'x':
+            comp = input("Enter company ID or 'x' to exit request:")
+            if comp == 'x':
                 return 
             
-            comId = int(type_in)
-
-            # companyId must be valid
+            comId = int(comp)
+            # companyId must be positive
             if comId <= 0:
                 raise ValueError
             
+            # check if companyId exists
             if not db_mysql.company_exists(comId):
                 print(f"Company with Id {comId} does not exist.")
                 continue
 
+            # Retreive attendees of the company name
             results = db_mysql.get_attendees(comId)
             company_name = db_mysql.company_exists(comId)
 
+
             print(f"{company_name} Attendees")
 
+            # Send a message when no attendees are found
             if not results:
                 print(f"No attendees found for {company_name}")
                 return
 
+            # Display the attendees
             for row in results:
                 name, dob, session, speaker, date, room = row
                 print(f"{name} | {dob} | {session} | {speaker} | {date}  | {room}")
             return
+        
         except ValueError:
             print("Invalid company Id")
 
 
-# Option 3: Add new attendee
+# Option 3: Add new attendee to the database
 def op3():
     try:
         attendeeID = int(input("Enter Attendee ID: "))
@@ -147,19 +156,21 @@ def op4():
             print(f"Attendee Name: {attendeeName}")
             print("------------------------------")
 
-            # Get connected attendees
+            # Get connected attendees from neo4j
             connect = db_neo4j.get_connected_attendees(attendeeID)
 
+            # Send a message if no connections exist
             if not connect:
                 print("No connections")
                 return
             
-            # print connections
+            # Display connections
             for c in connect:
                 name = db_mysql.get_attendee_name(c['ID'])
                 print("These attendees are connected:")
                 print(f"{c['ID']} | {name}")
             return
+        
         except ValueError:
             print("*** ERROR *** Invalid Attendee ID")
 
@@ -176,7 +187,7 @@ def op5():
             attendee1 = int(input("Enter Attendee 1 ID: "))
             attendee2 = int(input("Enter Attendee 2 ID: "))
 
-            # Check if both attendees exist
+            # Check if both attendees exist in mysql
             a1 = db_mysql.attendee_exists(attendee1)
             a2 = db_mysql.attendee_exists(attendee2)
 
@@ -184,11 +195,12 @@ def op5():
                 print("*** ERROR *** One or both attendee IDs do not exist")
                 continue
             
+            # Send an error message if the same attendee ID is entered twice
             if attendee1==attendee2:
                 print("*** ERROR *** An attendee cannot connect to him/herself")
                 continue
             
-            # check if any attendee already has a connection
+            # check if the connection already exists
             if db_neo4j.connection_exists(attendee1,attendee2):
                 print("*** ERROR *** These attendees are already connected")
                 continue
@@ -207,6 +219,7 @@ def op6():
     
     try:
         print("Room ID | RoomName | Capacity")
+        # Display stored rooms info (do not reload the database)
         for room in rooms:
             print(f"{room[0]} | {room[1]} | {room[2]}")
     except Exception as e:
