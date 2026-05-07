@@ -51,10 +51,10 @@ def main():
 
 # Option 1: Display speakers, their sessions and rooms
 def op1():
-    name = input("Enter speaker name: ")
+    name = input("\nEnter speaker name: ")
     results = db_mysql.get_speakers_sessions(name)
 
-    print(f"Session Details For : {name}")
+    print(f"\nSession Details For : {name}")
 
     # Send a message if no speakers are found
     if not results:
@@ -62,7 +62,7 @@ def op1():
         return
 
     # Display the results in a table format
-    print(f"\n{'Speaker':<25} | {'Session':<30} | {'Room':<15}")
+    print(f"{'Speaker':<25} | {'Session':<30} | {'Room':<15}")
     print("-" * 75)
 
     # Display the results
@@ -75,8 +75,10 @@ def op1():
 def op2():
     while True:
         try:
-            comp = input("Enter company ID (or 'x' to exit request):")
+            comp = input("\nEnter company ID (or 'x' to exit request):")
+            # Exit option
             if comp == 'x':
+                print("Back to main menu")
                 return 
             
             comId = int(comp)
@@ -86,7 +88,7 @@ def op2():
             
             # check if companyId exists
             if not db_mysql.company_exists(comId):
-                print(f"\nCompany with Id {comId} does not exist.")
+                print(f"Company with Id {comId} does not exist.")
                 continue
 
             # Retreive attendees of the company name
@@ -98,7 +100,7 @@ def op2():
 
             # Send a message when no attendees are found
             if not results:
-                print(f"\nNo attendees found for {company_name}")
+                print(f"No attendees found for {company_name}")
                 return
 
             # Display the results in a table format
@@ -112,12 +114,14 @@ def op2():
             return
         
         except ValueError:
-            print("\nInvalid company Id")
+            print("Invalid company Id")
 
 
 # Option 3: Add new attendee to the database
 def op3():
     try:
+        print("\nAdd New Attendee")
+        print("----------------")
         attendeeID = int(input("Enter Attendee ID: "))
         attendeeName = input("Enter Attendee Name: ")
         attendeeDOB = input("Enter Attendee Date of Birth: ")
@@ -141,7 +145,7 @@ def op3():
         
         # Insert the new attendee into the database
         db_mysql.new_attendee(attendeeID, attendeeName, attendeeDOB, attendeeGender, attendeeCompanyID)
-        print("Attendee successfully added.")
+        print("\nAttendee successfully added.")
 
     except Exception as e:
         print(f"*** ERROR *** {e}")
@@ -152,8 +156,12 @@ def op4():
     
     while True:
         try:
-            attendeeID = int(input("Enter Attendee ID: "))
-            
+            attendeeID = int(input("\nEnter Attendee ID (or 'x' to exit request): "))
+            # Exit option
+            if attendeeID == 'x':
+                print("Back to main menu")
+                return
+
             # Get attendee's name from mysql
             attendeeName = db_mysql.get_attendee_name(attendeeID)
 
@@ -185,16 +193,21 @@ def op4():
 
 
 # Option 5: Add attendee connection
-# For the moment, the option will keep running until 
-# I enter the right combination of attendees so it can create a connection. 
-# I should be able to quit this option when I want
-
 def op5():
     while True:
     
         try:
-            attendee1 = int(input("Enter Attendee 1 ID: "))
-            attendee2 = int(input("Enter Attendee 2 ID: "))
+            attendee1 = int(input("Enter Attendee 1 ID (or 'x' to exit request): "))
+            # Exit option
+            if attendee1 == 'x':
+                print("Back to main menu")
+                return
+            
+            attendee2 = int(input("Enter Attendee 2 ID (or 'x' to exit request): "))
+            # Exit option
+            if attendee2 == 'x':
+                print("Back to main menu")
+                return
 
             # Check if both attendees exist in mysql
             a1 = db_mysql.attendee_exists(attendee1)
@@ -227,10 +240,12 @@ def op6():
     global rooms
     
     try:
-        print("Room ID | RoomName | Capacity")
+        # Display the results in a table format
+        print("\n{'Room ID':<10} | {'RoomName':<20} | {'Capacity':<10}")
+       
         # Display stored rooms info (do not reload the database)
         for room in rooms:
-            print(f"{room[0]} | {room[1]} | {room[2]}")
+            print(f"{room[0]:<10} | {room[1]:<20} | {room[2]:<10}")
     except Exception as e:
         print(f"*** ERROR *** {e}")
 
