@@ -2,7 +2,7 @@ import pymysql
 
 conn = None
 
-
+# Connect to MySQL database
 def connect():
     global conn
     conn = pymysql.connect(
@@ -28,7 +28,10 @@ def get_speakers_sessions(name):
     """
 
     cursor = conn.cursor()
+
+    # Run query
     cursor.execute(query, ("%" + name + "%",))
+    # Return all matching rows
     return cursor.fetchall()
 
 
@@ -41,6 +44,7 @@ def company_exists(company_id):
     if not conn:
         connect()
 
+    # check if companyID exists and get company name
     query = """
     SELECT companyName
     FROM company
@@ -55,7 +59,7 @@ def company_exists(company_id):
     return None
 
 
-# get the attendees of a company
+# get the attendees in a specific company
 def get_attendees(company_id):
     global conn
 
@@ -77,6 +81,7 @@ def get_attendees(company_id):
     """
 
     cursor = conn.cursor()
+    # Run query and return all matching rows
     cursor.execute(query, (company_id,))
     return cursor.fetchall()
 
@@ -91,6 +96,7 @@ def attendee_exists(attendeeID):
     if not conn:
         connect()
 
+    # check if attendeeID exists
     query = """
     SELECT attendeeID
     FROM attendee
@@ -100,7 +106,7 @@ def attendee_exists(attendeeID):
     cursor.execute(query, (attendeeID,))
     return cursor.fetchone() is not None
 
-
+# Insert new attendee into the database
 def new_attendee(attendeeID, attendeeName, attendeeDOB, attendeeGender, attendeeCompanyID):
     global conn
 
@@ -116,6 +122,7 @@ def new_attendee(attendeeID, attendeeName, attendeeDOB, attendeeGender, attendee
     cursor.execute(query, (attendeeID, attendeeName, attendeeDOB, attendeeGender, attendeeCompanyID))
     conn.commit()
 
+
 # Option 4: Get connected attendees
 def get_attendee_name(attendeeID):
     global conn
@@ -123,6 +130,7 @@ def get_attendee_name(attendeeID):
     if not conn:
         connect()
 
+    # Get attendee's name
     query = """
     SELECT attendeeName
     FROM attendee
@@ -132,6 +140,7 @@ def get_attendee_name(attendeeID):
     cursor.execute(query, (attendeeID,))
     result = cursor.fetchone()
 
+    # Return attendee's name if found, otherwise return None
     return result[0] if result else None
 
 # Option 6: Get rooms information
@@ -141,10 +150,12 @@ def get_room_info():
     if not conn:
         connect()
 
+    # Get room details
     query = """
     SELECT roomID,roomName, capacity
     FROM room
     """
     cursor = conn.cursor()
+    # Run query and return all room details
     cursor.execute(query)
     return cursor.fetchall()
