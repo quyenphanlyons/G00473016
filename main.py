@@ -105,7 +105,7 @@ def op2():
 
             # Display the results in a table format
             print(f"\n{'Name':<25} | {'DOB':<12} | {'Session':<40} | {'Speaker':<25} | {'Date':<12} | {'Room':<15}")
-            print("-" * 120)
+            print("-" * 135)
 
             # Display the attendees
             for row in results:
@@ -197,7 +197,7 @@ def op5():
     while True:
     
         try:
-            attendee1 = int(input("Enter Attendee 1 ID (or 'x' to exit request): "))
+            attendee1 = int(input("\nEnter Attendee 1 ID (or 'x' to exit request): "))
             # Exit option
             if attendee1 == 'x':
                 print("Back to main menu")
