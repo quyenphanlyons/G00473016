@@ -61,16 +61,21 @@ def op1():
         print("No speakers found of that name")
         return
 
+    # Display the results in a table format
+    print(f"\n{'Speaker':<25} | {'Session':<30} | {'Room':<15}")
+    print("-" * 75)
+
+    # Display the results
     for row in results:
         speaker, session, room = row
-        print(f"{speaker} | {session} | {room}")
+        print(f"{speaker:<25} | {session:<30} | {room:<15}")
           
 
 # Option 2: Display attendees by company
 def op2():
     while True:
         try:
-            comp = input("Enter company ID or 'x' to exit request:")
+            comp = input("Enter company ID (or 'x' to exit request):")
             if comp == 'x':
                 return 
             

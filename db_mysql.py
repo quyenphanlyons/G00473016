@@ -78,6 +78,7 @@ def get_attendees(company_id):
     JOIN session s ON re.sessionID = s.sessionID
     JOIN room r ON s.roomID = r.roomID
     WHERE a.attendeeCompanyID = %s
+    ORDER BY s.speakerName ASC
     """
 
     cursor = conn.cursor()
