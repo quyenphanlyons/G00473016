@@ -1,4 +1,6 @@
-
+# Author: Quyen Phan
+# Project: Applied Databases
+# GitHub link: https://github.com/quyenphanlyons/G00473016
 
 import db_mysql
 import db_neo4j
