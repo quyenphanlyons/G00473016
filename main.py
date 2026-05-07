@@ -197,17 +197,16 @@ def op5():
     while True:
     
         try:
-            attendee1 = int(input("\nEnter Attendee 1 ID (or 'x' to exit request): "))
+            attendee1 = input("\nEnter Attendee 1 ID (or 'x' to exit request): ")
+            attendee2 = input("Enter Attendee 2 ID (or 'x' to exit request): ")
+            
             # Exit option
-            if attendee1 == 'x':
+            if attendee1 == 'x' or attendee2 == 'x':
                 print("Back to main menu")
                 return
             
-            attendee2 = int(input("Enter Attendee 2 ID (or 'x' to exit request): "))
-            # Exit option
-            if attendee2 == 'x':
-                print("Back to main menu")
-                return
+            attendee1 = int(attendee1)
+            attendee2 = int(attendee2)
 
             # Check if both attendees exist in mysql
             a1 = db_mysql.attendee_exists(attendee1)
