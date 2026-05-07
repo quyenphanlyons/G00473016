@@ -1,0 +1,31 @@
+Project Improvements:
+--------------------
+
+1/ Improved Display formatting
+
+The display formatting of the application was improved by adding table layout for the results in options 1, 2 and 6. Aligned spacing was added to make the results easier to read and more organised.
+
+Example from Option 1:
+# Display the results in a table format
+print(f"{'Speaker':<25} | {'Session':<30} | {'Room':<15}")
+print("-" * 75)
+
+# Display the results
+for row in results:
+	speaker, session, room = row
+	print(f"{speaker:<25} | {session:<30} | {room:<15}")
+
+
+2/ Exit option added
+
+Some menu options originally forced the user to stay in loop until valid data was entered (particularly Option 5). To improve usability, an exit option was added to menu options 2, 4 and 5, allowing the user to leave the current request at anytime.
+
+The user can now type 'x' to return to the main menu without completing the operation.
+
+Example from Option 4:
+attendeeID = int(input("\nEnter Attendee ID (or 'x' to exit request): "))
+# Exit option
+if attendeeID == 'x':
+print("Back to main menu")
+return
+
