@@ -86,7 +86,7 @@ def op2():
             
             # check if companyId exists
             if not db_mysql.company_exists(comId):
-                print(f"Company with Id {comId} does not exist.")
+                print(f"\nCompany with Id {comId} does not exist.")
                 continue
 
             # Retreive attendees of the company name
@@ -94,21 +94,25 @@ def op2():
             company_name = db_mysql.company_exists(comId)
 
 
-            print(f"{company_name} Attendees")
+            print(f"\n{company_name} Attendees")
 
             # Send a message when no attendees are found
             if not results:
-                print(f"No attendees found for {company_name}")
+                print(f"\nNo attendees found for {company_name}")
                 return
+
+            # Display the results in a table format
+            print(f"\n{'Name':<25} | {'DOB':<12} | {'Session':<30} | {'Speaker':<25} | {'Date':<12} | {'Room':<15}")
+            print("-" * 120)
 
             # Display the attendees
             for row in results:
                 name, dob, session, speaker, date, room = row
-                print(f"{name} | {dob} | {session} | {speaker} | {date}  | {room}")
+                print(f"{name:<25} | {dob:<12} | {session:<30} | {speaker:<25} | {date:<12} | {room:<15}")
             return
         
         except ValueError:
-            print("Invalid company Id")
+            print("\nInvalid company Id")
 
 
 # Option 3: Add new attendee to the database
