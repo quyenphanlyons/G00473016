@@ -104,13 +104,13 @@ def op2():
                 return
 
             # Display the results in a table format
-            print(f"\n{'Name':<25} | {'DOB':<12} | {'Session':<30} | {'Speaker':<25} | {'Date':<12} | {'Room':<15}")
+            print(f"\n{'Name':<25} | {'DOB':<12} | {'Session':<40} | {'Speaker':<25} | {'Date':<12} | {'Room':<15}")
             print("-" * 120)
 
             # Display the attendees
             for row in results:
                 name, dob, session, speaker, date, room = row
-                print(f"{name:<25} | {dob:<12} | {session:<30} | {speaker:<25} | {date:<12} | {room:<15}")
+                print(f"{name:<25} | {dob.strftime('%Y-%m-%d'):<12} | {session:<40} | {speaker:<25} | {date.strftime('%Y-%m-%d'):<12} | {room:<15}")
             return
         
         except ValueError:
